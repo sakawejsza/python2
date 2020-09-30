@@ -41,7 +41,7 @@ for line in open('clean_log.txt'):
 for key in months.list:
   print ("In " + key + " there was " + str(months.list[key]) + " transactions")
 
-print("This log includes log entries from " + list_dates[0] + " to " + list_dates[len(list_dates)-1])#gives the user fill range of adtes the log file covers
+print("\nThis log includes log entries from " + list_dates[0] + " to " + list_dates[len(list_dates)-1])#gives the user fill range of adtes the log file covers
 
 #asks user if they would like to get total transaction on a certain day
 while True:    
