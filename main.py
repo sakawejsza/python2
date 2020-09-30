@@ -1,0 +1,76 @@
+from urllib.request import urlretrieve
+import re
+from os import path
+clean = []
+
+
+FILE_NAME = 'clean_log.txt'     
+        
+for line in open(FILE_NAME):
+
+    # open file in append mode
+    Oct94 = open("Oct94.txt", 'a+')
+    Nov94 = open("Nov94.txt", 'a+')
+    Dec94 = open("Dec94.txt", 'a+')
+    Jan95 = open("Jan95.txt", 'a+')
+    Feb95 = open("Feb95.txt", 'a+')
+    Mar95 = open("Mar95.txt", 'a+')
+    Apr95 = open("Apr95.txt", 'a+')
+    May95 = open("May95.txt", 'a+')
+    Jun95 = open("Jun95.txt", 'a+')
+    Jul95 = open("Jul95.txt", 'a+')
+    Aug95 = open("Aug95.txt", 'a+')
+    Sep95 = open("Sep95.txt", 'a+')
+    Oct95 = open("Oct95.txt", 'a+')
+    
+
+    regex = re.compile(".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?)( HTTP.*\"|\") ([2-5]0[0-9]) .*")
+
+    # Call the split() method to get all the capture groups put in a list
+    parts = regex.split(line)
+    
+    date = parts[1]
+    clean = date[3:12]#clean up date
+          
+            
+    if clean == 'Oct/1994':
+        Oct94.write(line)
+    elif clean == 'Nov/1994':
+        Nov94.write(line)
+    elif clean == 'Dec/1994':
+        Dec94.write(line)
+    elif clean == 'Jan/1995':
+        Jan95.write(line)
+    elif clean == 'Feb/1995':
+        Feb95.write(line)
+    elif clean == 'Mar/1995':
+        Mar95.write(line)
+    elif clean == 'Apr/1995':
+        Apr95.write(line)
+    elif clean == 'May/1995':
+        May95.write(line)
+    elif clean == 'Jun/1995':
+        Jun95.write(line)
+    elif clean == 'Jul/1995':
+        Jul95.write(line)
+    elif clean == 'Aug/1995':
+        Aug95.write(line)
+    elif clean == 'Sep/1995':
+        Sep95.write(line)
+    elif clean == 'Oct/1995':
+        Oct95.write(line)
+
+Oct94.close()
+Nov94.close()
+Dec94.close() 
+Jan95.close()
+Feb95.close()
+Mar95.close()
+Apr95.close()
+May95.close()
+Jun95.close()
+Jul95.close()
+Aug95.close()
+Sep95.close()
+Oct95.close()
+print('Done')
