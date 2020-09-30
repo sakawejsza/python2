@@ -71,6 +71,25 @@ print('\nTotal logs in the file: ' + str(sum(days.list.values())))
 print('\nMost requested file: ' + max(files.list.items(), key=operator.itemgetter(1))[0])
 print('\nLeast requested file: ' + min(files.list.items(), key=operator.itemgetter(1))[0] + "\n")
 
+while True:    
+    n = input("\nWould you like to find the number of transaction within a certain time frame(Y or N): ")
+    if n == "N" :
+        break  
+    elif n == "Y":
+        while True:
+            start = str(input("\nEnter your start date(ex. 12/Oct/1994)(to exit enter X): "))
+            if start == "X":
+                break
+            end = str(input("\nEnter your end date, this date will not be included(ex. 12/Oct/1995): "))
+            if ((start in list_dates) and (end in list_dates)):
+                start_days_ct = list_dates.index(start)
+                end_days_ct = list_dates.index(end) - 1
+                requests = end_days_ct - start_days_ct
+                print('Between ' + start + ' and ' + end + ' there were ' + str(requests) + ' requests.')   
+                break
+            else:
+                print("\nThis time frame does not exists in file. Please try again.")
+
 
 
 FILE_NAME = 'clean_log.txt'
