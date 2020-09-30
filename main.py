@@ -83,7 +83,7 @@ while True:
             end = str(input("\nEnter your end date, this date will not be included(ex. 12/Oct/1995): "))
             if ((start in list_dates) and (end in list_dates)):
                 start_days_ct = list_dates.index(start)
-                end_days_ct = list_dates.index(end) - 1
+                end_days_ct = list_dates.index(end)
                 requests = end_days_ct - start_days_ct
                 print('Between ' + start + ' and ' + end + ' there were ' + str(requests) + ' requests.')   
                 break
@@ -100,7 +100,6 @@ while True:
     if n == "N":
         break  # stops the loop
     elif n == "Y":
-       for line in open(FILE_NAME):
                 # open file in append mode
         Oct94 = open("Oct94.txt", 'a+')
         Nov94 = open("Nov94.txt", 'a+')
@@ -115,55 +114,56 @@ while True:
         Aug95 = open("Aug95.txt", 'a+')
         Sep95 = open("Sep95.txt", 'a+')
         Oct95 = open("Oct95.txt", 'a+')
-    
+	
+    	for line in open(FILE_NAME):
 
-        regex = re.compile(".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?)( HTTP.*\"|\") ([2-5]0[0-9]) .*")
+        	regex = re.compile(".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?)( HTTP.*\"|\") ([2-5]0[0-9]) .*")
 
-        # Call the split() method to get all the capture groups put in a list
-        parts = regex.split(line)
+        	# Call the split() method to get all the capture groups put in a list
+        	parts = regex.split(line)
     
-        date = parts[1]
-        clean = date[3:12]#clean up date
+        	date = parts[1]
+        	clean = date[3:12]#clean up date
           
             
-        if clean == 'Oct/1994':
-                Oct94.write(line)
-        elif clean == 'Nov/1994':
-                Nov94.write(line)
-        elif clean == 'Dec/1994':
-                Dec94.write(line)
-        elif clean == 'Jan/1995':
-                Jan95.write(line)
-        elif clean == 'Feb/1995':
-                Feb95.write(line)
-        elif clean == 'Mar/1995':
-                Mar95.write(line)
-        elif clean == 'Apr/1995':
-                Apr95.write(line)
-        elif clean == 'May/1995':
-                May95.write(line)
-        elif clean == 'Jun/1995':
-                Jun95.write(line)
-        elif clean == 'Jul/1995':
-                Jul95.write(line)
-        elif clean == 'Aug/1995':
-                Aug95.write(line)
-        elif clean == 'Sep/1995':
-                Sep95.write(line)
-        elif clean == 'Oct/1995':
-                Oct95.write(line)
+        	if clean == 'Oct/1994':
+                	Oct94.write(line)
+        	elif clean == 'Nov/1994':
+                	Nov94.write(line)
+        	elif clean == 'Dec/1994':
+                	Dec94.write(line)
+        	elif clean == 'Jan/1995':
+                	Jan95.write(line)
+        	elif clean == 'Feb/1995':
+                	Feb95.write(line)
+        	elif clean == 'Mar/1995':
+                	Mar95.write(line)
+        	elif clean == 'Apr/1995':
+                	Apr95.write(line)
+        	elif clean == 'May/1995':
+                	May95.write(line)
+        	elif clean == 'Jun/1995':
+                	Jun95.write(line)
+        	elif clean == 'Jul/1995':
+                	Jul95.write(line)
+        	elif clean == 'Aug/1995':
+                	Aug95.write(line)
+        	elif clean == 'Sep/1995':
+                	Sep95.write(line)
+        	elif clean == 'Oct/1995':
+                	Oct95.write(line)
 
-Oct94.close()
-Nov94.close()
-Dec94.close() 
-Jan95.close()
-Feb95.close()
-Mar95.close()
-Apr95.close()
-May95.close()
-Jun95.close()
-Jul95.close()
-Aug95.close()
-Sep95.close()
-Oct95.close()
-print('All files have been created')
+	Oct94.close()
+	Nov94.close()
+	Dec94.close() 
+	Jan95.close()
+	Feb95.close()
+	Mar95.close()
+	Apr95.close()
+	May95.close()
+	Jun95.close()
+	Jul95.close()
+	Aug95.close()
+	Sep95.close()
+	Oct95.close()
+	print('All files have been created')
