@@ -11,6 +11,7 @@ codes = []#list of status codes
 redirects = 0 #counts the times 3xx code appears
 notsuccess = 0 #counts the times 4xx comes up
 
+#Puts various log entry pieces into a dictionary
 class Totals:
     def __init__(self, x, list):
       self.x = x
@@ -20,6 +21,7 @@ class Totals:
       else:
         list[x] = 1
 
+#splits each line in log file to put into dictionary 
 for line in open('clean_log.txt'):
   
   pieces = re.split(".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?)( HTTP.*\"|\") ([2-5]0[0-9]) .*", line)
@@ -34,13 +36,14 @@ for line in open('clean_log.txt'):
   files = Totals(filename, ct_filenames)
   days = Totals(date, perday)
 
-
+#prints the total transactions per month
 for key in months.list:
   print ("In " + key + " there was " + str(months.list[key]) + " transactions")
 
-print("This log includes log entries from " + list_dates[0] + " to " + list_dates[len(list_dates)-1])
+print("This log includes log entries from " + list_dates[0] + " to " + list_dates[len(list_dates)-1])#gives the user fill range of adtes the log file covers
 
-while True:    # infinite loop
+#asks user if they would like to get total transaction on a certain day
+while True:    
     n = input("\nWould you like to find the number of transaction on a certain day(Y or N): ")
     if n == "N":
         break  # stops the loop
@@ -51,13 +54,15 @@ while True:    # infinite loop
         else:
           print("\nNo, key: " + d + " does not exists in dictionary. Please try again.")
 
-
+#tallys up the number of redirects and not successful transactions
 for numbers in codes:
 	if(numbers[0] == '3'):
 		redirects = redirects + 1
 	if(numbers[0] == '4'):
 		notsuccess = notsuccess + 1
-
+		
+	
+#print percent of redirects and not success transactions
 print("\nThe percent of not successful requests is " + str((notsuccess/len(codes))*100) + "%")
 print("\nThe percent of redirected requests is "+ str((redirects/len(codes))*100)+ "%")
 
@@ -69,8 +74,8 @@ print('\nLeast requested file: ' + min(files.list.items(), key=operator.itemgett
 
 FILE_NAME = 'clean_log.txt'
 
-
-while True:    # infinite loop
+#checks if user would like to create a txt file for each month
+while True:    
     n = input("\nWould you like to split the log file up by month(Y or N)?(WARNING: this may take a while): ")
     if n == "N":
         break  # stops the loop
@@ -141,4 +146,4 @@ Jul95.close()
 Aug95.close()
 Sep95.close()
 Oct95.close()
-print('Done')
+print('All files have been created')
