@@ -1,7 +1,70 @@
 from urllib.request import urlretrieve
 import re
+import operator
 from os import path
 clean = []
+ct_filenames = {}#dictionary of filenames
+permonth = {}# dictionary of entries per month
+perday = {}# dictionary of days and amount of transcations per day
+list_dates = []#list of dates 12/Oct/1994
+codes = []#list of status codes
+redirects = 0 #counts the times 3xx code appears
+notsuccess = 0 #counts the times 4xx comes up
+
+class Totals:
+    def __init__(self, x, list):
+      self.x = x
+      self.list = list
+      if x in list:
+        list[x] += 1
+      else:
+        list[x] = 1
+
+for line in open('clean_log.txt'):
+  
+  pieces = re.split(".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?)( HTTP.*\"|\") ([2-5]0[0-9]) .*", line)
+  codes.append(pieces[6])
+  list_dates.append(pieces[1])
+  date = pieces[1]# list of 12/Oct/1994
+  month = date[3:12] # list of Oct/1994
+
+  filename = pieces[4]# list of requested files
+
+  months = Totals(month, permonth)
+  files = Totals(filename, ct_filenames)
+  days = Totals(date, perday)
+
+
+for key in months.list:
+  print ("In " + key + " there was " + str(months.list[key]) + " transactions")
+
+print("This log includes log entries from " + list_dates[0] + " to " + list_dates[len(list_dates)-1])
+
+while True:    # infinite loop
+    n = input("\nWould you like to find the number of transaction on a certain day(Y or N): ")
+    if n == "N":
+        break  # stops the loop
+    elif n == "Y":
+        d = str(input("\nWhat day would you like to see the total transactions for(ex. 12/Oct/1995): "))
+        if d in days.list:
+          print ("\nOn " + d + " there was " + str(days.list[d]) + " total transactions ")
+        else:
+          print("\nNo, key: " + d + " does not exists in dictionary. Please try again.")
+
+
+for numbers in codes:
+	if(numbers[0] == '3'):
+		redirects = redirects + 1
+	if(numbers[0] == '4'):
+		notsuccess = notsuccess + 1
+
+print("\nThe percent of not successful requests is " + str((notsuccess/len(codes))*100) + "%")
+print("\nThe percent of redirected requests is "+ str((redirects/len(codes))*100)+ "%")
+
+print('\nTotal logs in the file: ' + str(sum(days.list.values())))
+print('\nMost requested file: ' + max(files.list.items(), key=operator.itemgetter(1))[0])
+print('\nLeast requested file: ' + min(files.list.items(), key=operator.itemgetter(1))[0] + "\n")
+
 
 
 FILE_NAME = 'clean_log.txt'
