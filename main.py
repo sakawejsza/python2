@@ -2,10 +2,11 @@ from urllib.request import urlretrieve
 import re
 import operator
 from os import path
+
 clean = []
 ct_filenames = {}#dictionary of filenames
 permonth = {}# dictionary of entries per month
-perday = {}# dictionary of days and amount of transcations per day
+perday = {}# dictionary of days and amount of transactions per day
 list_dates = []#list of dates 12/Oct/1994
 codes = []#list of status codes
 redirects = 0 #counts the times 3xx code appears
@@ -21,7 +22,7 @@ class Totals:
       else:
         list[x] = 1
 
-#splits each line in log file to put into dictionary 
+#splits each line in log file to be put into dictionary 
 for line in open('clean_log.txt'):
   
   pieces = re.split(".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?)( HTTP.*\"|\") ([2-5]0[0-9]) .*", line)
